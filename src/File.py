@@ -35,7 +35,22 @@ class File(Stat):
     def mv(self, dst):
         self.Path = self.Move(self.Path, dst)
         return self.Path
-    
+
+    def readline(self):
+        for l in open(self.Path): yield l
+    def read(self, is_binary=False):
+        mode = 'r'
+        if is_binary: mode += 'b'
+        with open(self.Path, mode): return f.read()
+    def write(self, data):
+        if type(data) == str: with open(self.Path, 'w'): f.write(data)
+        elif type(data) == bytes: with open(self.Path, 'wb'): f.write(data)
+        else: raise ValueError('引数dataはstr,bytesのいずれかにしてください。{}'.format(type(data)))
+    def append(self, data):
+        if type(data) == str: with open(self.Path, 'a'): f.write(data)
+        elif type(data) == bytes: with open(self.Path, 'ab'): f.write(data)
+        else: raise ValueError('引数dataはstr,bytesのいずれかにしてください。{}'.format(type(data)))
+
     @classmethod
     def IsExist(cls, path): return os.path.isfile(path)
     @classmethod
