@@ -17,7 +17,7 @@ class Stat:
         if os.path.exists(str(v)):
         #if os.path.exists(str(v)) and str(v) != str(self.Path):
             self.__path = v
-            self.__stat= os.stat(v)
+            self.__stat = os.stat(v)
     @property
     def Size(self): return self.GetSize(self.Path)
 
